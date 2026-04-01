@@ -5,8 +5,9 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "npx vite build",
-    "preview": "vite preview"
+    "build": "node -e \"const fs = require('fs'); const path = require('path'); const bin = path.join(__dirname, 'node_modules', '.bin', 'vite'); fs.existsSync(bin) && fs.chmodSync(bin, '0755');\" && vite build",
+    "preview": "vite preview",
+    "postinstall": "node -e \"const fs = require('fs'); const path = require('path'); const bin = path.resolve('node_modules/.bin'); fs.existsSync(bin) && fs.readdirSync(bin).forEach(f => { try { fs.chmodSync(path.join(bin, f), '0755'); } catch(e){} });\""
   },
   "dependencies": {
     "lucide-react": "^0.468.0",
